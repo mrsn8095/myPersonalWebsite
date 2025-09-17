@@ -603,7 +603,7 @@
           </div>
 
           <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-            <form action="" method="post" id="submit-form" class="php-email-form">
+            <form method="post" id="submit-form" class="php-email-form">
               <div class="row">
                 <div class="form-group col-md-6">
                   <label for="name">Your Name</label>
@@ -671,24 +671,35 @@
   <script src="assets/js/main.js"></script>
 
 
-  <script>
-    $("#submit-form").submit((e)=>{
-        e.preventDefault()
-        $.ajax({
-            url:"https://script.google.com/macros/s/AKfycby1xko20mQFtIesuBqA7XRthvbB9WeUMLs4JpwUa-vNfjOFY96aZvMb5PhdJZ69kQBf8A/exec",
-            data:$("#submit-form").serialize(),
-            method:"post",
-            success:function (response){
-                alert("Form submitted successfully")
-                window.location.reload()
-                //window.location.href="https://google.com"
-            },
-            error:function (err){
-                alert("Something Error")
+ <script>
+document.getElementById("submit-form").addEventListener("submit", function(e) {
+  e.preventDefault();
+  
+  document.querySelector(".loading").style.display = "block";
+  document.querySelector(".error-message").style.display = "none";
+  document.querySelector(".sent-message").style.display = "none";
 
-            }
-        })
-    })
+  const formData = new FormData(this);
+
+  fetch("YOUR_SCRIPT_URL", {  'https://script.google.com/macros/s/AKfycbx2XM6wlzSIETf3ZCmExIuWnwJxOCutjEhYTtWdJ9KxBnTcaYgFkNPnazndQpFzYRn1IQ/exec'  // 👈 paste your Google Apps Script Web App URL here
+    method: "POST",
+    body: formData
+  })
+  .then(response => {
+    if (response.ok) {
+      document.querySelector(".loading").style.display = "none";
+      document.querySelector(".sent-message").style.display = "block";
+      this.reset();
+    } else {
+      throw new Error("Form submission failed");
+    }
+  })
+  .catch(error => {
+    document.querySelector(".loading").style.display = "none";
+    document.querySelector(".error-message").innerText = error.message;
+    document.querySelector(".error-message").style.display = "block";
+  });
+});
 </script>
 </body>
 
