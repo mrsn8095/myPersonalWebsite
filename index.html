@@ -681,7 +681,7 @@ document.getElementById("submit-form").addEventListener("submit", function(e) {
 
   const formData = new FormData(this);
 
-  fetch("YOUR_SCRIPT_URL", {  'https://script.google.com/macros/s/AKfycbx2XM6wlzSIETf3ZCmExIuWnwJxOCutjEhYTtWdJ9KxBnTcaYgFkNPnazndQpFzYRn1IQ/exec'  // 👈 paste your Google Apps Script Web App URL here
+  fetch("https://script.google.com/macros/s/AKfycbx2XM6wlzSIETf3ZCmExIuWnwJxOCutjEhYTtWdJ9KxBnTcaYgFkNPnazndQpFzYRn1IQ/exec", {    // 👈 paste your Google Apps Script Web App URL here
     method: "POST",
     body: formData
   })
